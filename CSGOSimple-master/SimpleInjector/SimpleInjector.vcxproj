@@ -22,6 +22,7 @@
     <ProjectGuid>{D6A5475A-A3D9-4971-B971-A94520CB0354}</ProjectGuid>
     <RootNamespace>SimpleInjector</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Ayyjector</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

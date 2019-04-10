@@ -395,7 +395,7 @@
       <Filter>Header Files\fonts</Filter>
     </ClInclude>
     <ClInclude Include="fakelag.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\features</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,16 @@
 class Config
 {
 public:
+
+	//
+	// ANTIAIM
+	//
+	OPTION(bool, fakelag_enabled, false);
+	OPTION(int, fakelag_style, 0);
+	OPTION(int, fakelag_ticks, 0);
+	OPTION(int, fakelag_min, 0);
+	OPTION(int, fakelag_max, 0);
+
     // 
     // ESP
     // 

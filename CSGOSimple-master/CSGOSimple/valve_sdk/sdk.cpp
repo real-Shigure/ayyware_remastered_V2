@@ -29,6 +29,7 @@ IDirect3DDevice9*     g_D3DDevice9     = nullptr;
 CClientState*         g_ClientState    = nullptr;
 IPhysicsSurfaceProps* g_PhysSurface    = nullptr;
 IInputSystem*         g_InputSystem    = nullptr;
+INetChannel*		  g_NetChan        = nullptr;
 C_LocalPlayer         g_LocalPlayer;
 
 namespace Interfaces

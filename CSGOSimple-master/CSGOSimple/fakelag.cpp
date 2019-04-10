@@ -6,7 +6,7 @@
 
 void chris::features::fakelag::oncreatemove(CUserCmd* cmd, bool bSendPacket)
 {
-	int ticks;
+
 
 	if (g_Options.fakelag_enabled)
 	{
@@ -20,13 +20,13 @@ void chris::features::fakelag::oncreatemove(CUserCmd* cmd, bool bSendPacket)
 
 			case 1: // factor
 			{
-				ticks = g_Options.fakelag_ticks;
+				bSendPacket = (g_NetChan->m_nChokedPackets >= g_Options.fakelag_ticks);
 			}
 			break;
 
 			case 2: // adaptive
 			{
-				ticks = chris::features::fakelag::adaptive(bSendPacket);
+				bSendPacket = (g_NetChan->m_nChokedPackets >= chris::features::fakelag::adaptive(bSendPacket));
 			}
 			break;
 		}
@@ -35,5 +35,5 @@ void chris::features::fakelag::oncreatemove(CUserCmd* cmd, bool bSendPacket)
 
 int chris::features::fakelag::adaptive(bool bSendPacket)
 {
-
+	return 0;
 }

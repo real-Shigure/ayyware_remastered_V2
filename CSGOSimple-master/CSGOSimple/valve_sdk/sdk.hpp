@@ -81,6 +81,7 @@ extern IDirect3DDevice9*     g_D3DDevice9;
 extern CClientState*         g_ClientState;
 extern IPhysicsSurfaceProps* g_PhysSurface;
 extern IInputSystem*         g_InputSystem;
+extern INetChannel*			 g_NetChan;
 
 template<typename... Args>
 void ConMsg(const char* pMsg, Args... args)

@@ -35,5 +35,33 @@ void chris::features::fakelag::oncreatemove(CUserCmd* cmd, bool bSendPacket)
 
 int chris::features::fakelag::adaptive(bool bSendPacket)
 {
-	return 0;
+	int wish_ticks = 0, adaptive_ticks = 2;
+	float extrapolated_speed = g_LocalPlayer->m_vecVelocity().Length2D() * g_GlobalVars->interval_per_tick;
+
+	while ((wish_ticks * extrapolated_speed) <= 68.f) {
+		if (((adaptive_ticks - 1) * extrapolated_speed) > 68.f) {
+			++wish_ticks;
+			break;
+		}
+		if ((adaptive_ticks * extrapolated_speed) > 68.f) {
+			wish_ticks += 2;
+			break;
+		}
+		if (((adaptive_ticks + 1) * extrapolated_speed) > 68.f) {
+			wish_ticks += 3;
+			break;
+		}
+		if (((adaptive_ticks + 2) * extrapolated_speed) > 68.f) {
+			wish_ticks += 4;
+			break;
+		}
+
+		adaptive_ticks += 5;
+		wish_ticks += 5;
+
+		if (adaptive_ticks > 16)
+			break;
+	}
+
+	return wish_ticks;
 }

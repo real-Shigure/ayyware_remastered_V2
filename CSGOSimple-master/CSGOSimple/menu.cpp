@@ -244,6 +244,8 @@ void RenderMiscTab()
 
     ImGui::BeginGroupBox("##body_content");
     {
+		static const char* fakelag[]{ "Off","Factor","Adaptive" };
+
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ style.WindowPadding.x, style.ItemSpacing.y });
         ImGui::Columns(3, nullptr, false);
         ImGui::SetColumnOffset(1, group_w / 3.0f);
@@ -251,6 +253,12 @@ void RenderMiscTab()
         ImGui::SetColumnOffset(3, group_w);
 
         ImGui::Checkbox("Bunny hop", &g_Options.misc_bhop);
+		ImGui::Checkbox("Fakelag", &g_Options.fakelag_enabled);
+		ImGui::ListBox("Fakelag Style", &g_Options.fakelag_style, fakelag, IM_ARRAYSIZE(fakelag));
+		if (g_Options.fakelag_style == 1)
+		{
+			ImGui::SliderInt("Ticks", &g_Options.fakelag_ticks, 1, 14);
+		}
 		ImGui::Checkbox("Third Person", &g_Options.misc_thirdperson);
 		if(g_Options.misc_thirdperson)
 			ImGui::SliderFloat("Distance", &g_Options.misc_thirdperson_dist, 0.f, 150.f);

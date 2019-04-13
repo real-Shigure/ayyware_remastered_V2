@@ -14,8 +14,8 @@ namespace chris
 	{
 		namespace fakelag
 		{
-			void oncreatemove(CUserCmd* cmd, bool bSendPacket);
-			int adaptive(bool bSendPacket);
+			void oncreatemove(CUserCmd* cmd);
+			void adaptive(int ticks);
 		}
 	}
 }

@@ -15,8 +15,6 @@ public:
 	OPTION(bool, fakelag_enabled, false);
 	OPTION(int, fakelag_style, 0);
 	OPTION(int, fakelag_ticks, 0);
-	OPTION(int, fakelag_min, 0);
-	OPTION(int, fakelag_max, 0);
 
     // 
     // ESP
@@ -104,6 +102,8 @@ public:
     OPTION(Color, color_chams_arms_visible, Color(0, 128, 255));
     OPTION(Color, color_chams_arms_occluded, Color(0, 128, 255));
 	OPTION(Color, color_watermark, Color(0, 128, 255)); // no menu config cuz its useless
+	OPTION(Color, color_watermark1, Color(255, 0, 0));
+	OPTION(Color, color_watermark2, Color(0, 255, 0));
 };
 
 extern Config g_Options;

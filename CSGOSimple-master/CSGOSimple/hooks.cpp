@@ -10,7 +10,10 @@
 #include "features/chams.hpp"
 #include "features/visuals.hpp"
 #include "features/glow.hpp"
+#include "fakelag.h"
 #pragma intrinsic(_ReturnAddress)  
+
+QAngle LastTickViewAngles = QAngle(0, 0, 0);
 
 namespace Hooks
 {
@@ -151,6 +154,15 @@ namespace Hooks
 		if (g_Options.misc_bhop)
 			BunnyHop::OnCreateMove(cmd);
 
+		if (g_LocalPlayer->IsAlive()) bSendPacket = g_GlobalVars->sendpacket;
+		else bSendPacket = true;
+
+		if (g_Options.fakelag_enabled && g_LocalPlayer->IsAlive())
+			chris::features::fakelag::oncreatemove(cmd);
+		else
+			g_GlobalVars->sendpacket = true;
+
+		LastTickViewAngles = cmd->viewangles;
 
 		verified->m_cmd = *cmd;
 		verified->m_crc = cmd->GetChecksum();
@@ -244,6 +256,19 @@ namespace Hooks
 	{
 		static auto ofunc = hlclient_hook.get_original<FrameStageNotify>(index::FrameStageNotify);
 		// may be u will use it lol
+
+		auto niglocal = (C_BasePlayer*)g_EntityList->GetClientEntity(g_EngineClient->GetLocalPlayer());
+
+		if (g_EngineClient->IsInGame() && stage == FRAME_RENDER_START)
+		{
+			if (niglocal->IsAlive())
+			{
+				if (*(bool*)((DWORD)g_Input + 0xA5))
+					* (QAngle*)((DWORD)niglocal + 0x31C8) = LastTickViewAngles;
+			}
+
+		}
+
 		ofunc(g_CHLClient, stage);
 	}
 	//--------------------------------------------------------------------------------

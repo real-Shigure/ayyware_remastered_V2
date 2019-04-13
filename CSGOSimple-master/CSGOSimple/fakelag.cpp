@@ -4,36 +4,44 @@
 #include "helpers/math.hpp"
 #include "helpers/utils.hpp"
 
-void chris::features::fakelag::oncreatemove(CUserCmd* cmd, bool bSendPacket)
+void chris::features::fakelag::oncreatemove(CUserCmd* cmd)
 {
+	static int ticks = 0;
+	static int maxticks = 16;
 
-
-	if (g_Options.fakelag_enabled)
+	if (ticks >= maxticks)
 	{
-		switch (g_Options.fakelag_style)
+		g_GlobalVars->sendpacket = true;
+		ticks = 0;
+	}
+	else
+	{
+		ticks++;
+	}
+
+	switch (g_Options.fakelag_style)
+	{
+		case 0: // off
 		{
-			case 0: // off
-			{
-				return;
-			}
-			break;
-
-			case 1: // factor
-			{
-				bSendPacket = (g_NetChan->m_nChokedPackets >= g_Options.fakelag_ticks);
-			}
-			break;
-
-			case 2: // adaptive
-			{
-				bSendPacket = (g_NetChan->m_nChokedPackets >= chris::features::fakelag::adaptive(bSendPacket));
-			}
-			break;
+			return;
 		}
+		break;
+
+		case 1: // factor
+		{
+			g_GlobalVars->sendpacket = (ticks >= g_Options.fakelag_ticks);
+		}
+		break;
+
+		case 2: // adaptive
+		{
+			chris::features::fakelag::adaptive(ticks);
+		}
+		break;
 	}
 }
 
-int chris::features::fakelag::adaptive(bool bSendPacket)
+void chris::features::fakelag::adaptive(int ticks)
 {
 	int wish_ticks = 0, adaptive_ticks = 2;
 	float extrapolated_speed = g_LocalPlayer->m_vecVelocity().Length2D() * g_GlobalVars->interval_per_tick;
@@ -61,7 +69,7 @@ int chris::features::fakelag::adaptive(bool bSendPacket)
 
 		if (adaptive_ticks > 16)
 			break;
-	}
 
-	return wish_ticks;
+		g_GlobalVars->sendpacket = (ticks >= wish_ticks);
+	}
 }

@@ -1,6 +1,4 @@
 #pragma once
-
-class C_BasePlayer;
 class CUserCmd;
 
 

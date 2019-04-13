@@ -160,7 +160,7 @@ namespace Hooks
 		if (g_Options.fakelag_enabled && g_LocalPlayer->IsAlive())
 			chris::features::fakelag::oncreatemove(cmd);
 		else
-			g_GlobalVars->sendpacket = true;
+			g_GlobalVars->sendpacket = true; // this is to prevent a very odd bug where sendpacket would default to false despite being defined as true
 
 		LastTickViewAngles = cmd->viewangles;
 

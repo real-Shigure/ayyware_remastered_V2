@@ -6,14 +6,8 @@ class CUserCmd;
 #include "helpers/math.hpp"
 #include "valve_sdk/csgostructs.hpp"
 
-namespace chris
+namespace chris::features::fakelag
 {
-	namespace features
-	{
-		namespace fakelag
-		{
-			void oncreatemove(CUserCmd* cmd);
-			void adaptive(int ticks);
-		}
-	}
+	void oncreatemove(CUserCmd* cmd);
+	void adaptive(int ticks);
 }

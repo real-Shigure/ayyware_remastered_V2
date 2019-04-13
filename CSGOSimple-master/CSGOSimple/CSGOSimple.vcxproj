@@ -97,6 +97,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="antiaim.cpp" />
     <ClCompile Include="fakelag.cpp" />
     <ClCompile Include="features\bhop.cpp" />
     <ClCompile Include="features\chams.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="imgui\impl\imgui_impl_win32.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="misc.cpp" />
     <ClCompile Include="options.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="ui.cpp" />
@@ -132,11 +134,13 @@
     <ClCompile Include="valve_sdk\netvars.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="antiaim.h" />
     <ClInclude Include="fakelag.h" />
     <ClInclude Include="fonts\cousine.hpp" />
     <ClInclude Include="fonts\fonts.hpp" />
     <ClInclude Include="imgui\impl\imgui_impl_dx9.h" />
     <ClInclude Include="imgui\impl\imgui_impl_win32.h" />
+    <ClInclude Include="misc.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="valve_sdk\Misc\datamap.hpp" />
     <ClInclude Include="fonts\droid.hpp" />

@@ -131,6 +131,12 @@
     <ClCompile Include="fakelag.cpp">
       <Filter>Source Files\features</Filter>
     </ClCompile>
+    <ClCompile Include="antiaim.cpp">
+      <Filter>Source Files\features</Filter>
+    </ClCompile>
+    <ClCompile Include="misc.cpp">
+      <Filter>Source Files\features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="valve_sdk\misc\BaseHandle.hpp">
@@ -395,6 +401,12 @@
       <Filter>Header Files\fonts</Filter>
     </ClInclude>
     <ClInclude Include="fakelag.h">
+      <Filter>Header Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="antiaim.h">
+      <Filter>Header Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.h">
       <Filter>Header Files\features</Filter>
     </ClInclude>
   </ItemGroup>

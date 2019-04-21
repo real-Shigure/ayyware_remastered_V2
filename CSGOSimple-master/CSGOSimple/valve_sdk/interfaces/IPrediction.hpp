@@ -88,4 +88,9 @@ public:
         typedef void(__thiscall* oFinishMove)(void*, C_BasePlayer*, CUserCmd*, void*);
         return CallVFunction<oFinishMove>(this, 21)(this, player, ucmd, pMoveData);
     }
+
+	void set_local_viewangles(QAngle& angle) {
+		using original_fn = void(__thiscall*)(void*, QAngle&);
+		CallVFunction< original_fn >(this, 13)(this, angle);
+	}
 };

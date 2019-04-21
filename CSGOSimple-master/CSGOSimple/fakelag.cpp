@@ -7,6 +7,12 @@ namespace chris::features::fakelag
 {
 	void oncreatemove(CUserCmd* cmd)
 	{
+
+		if (cmd->buttons & IN_USE || cmd->buttons & IN_ATTACK)
+		{
+			g_GlobalVars->sendpacket = true;
+			return;
+		}
 		static int ticks = 0; // this entire part is basically cause clientstate is a fuck and wont display choked commands properly
 		static int maxticks = 16;
 
@@ -18,6 +24,11 @@ namespace chris::features::fakelag
 		else
 		{
 			ticks++;
+		}
+
+		if (g_EngineClient->IsVoiceRecording())
+		{
+			g_GlobalVars->sendpacket = (ticks > 4);
 		}
 
 		switch (g_Options.fakelag_style)

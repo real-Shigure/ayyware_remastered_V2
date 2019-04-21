@@ -67,7 +67,16 @@ void Render::BeginScene() {
 
 	if (g_Options.misc_watermark) //lol
 	{
-		Render::Get().RenderText("CSGOSimple", 10, 5, 18.f, g_Options.color_watermark, false, true, g_pSecondFont);
+		Render::Get().RenderText("AYYWARE CSGO", 10, 5, 18.f, g_Options.color_watermark, false, true, g_pSecondFont);
+
+		if (g_LocalPlayer && g_EngineClient->IsInGame())
+		{
+			if (g_LocalPlayer->IsAlive())
+			{
+				std::string lol = std::to_string(g_LocalPlayer->max_desync(nullptr, g_Options.antiaim_jitter));
+				Render::Get().RenderText("max-desync:" + lol, 10, 40, 18.f, g_Options.color_watermark, false, true, g_pSecondFont);
+			}
+		}
 	}
 	if (g_EngineClient->IsInGame() && g_LocalPlayer && g_Options.esp_enabled)
 		Visuals::Get().AddToDrawList();

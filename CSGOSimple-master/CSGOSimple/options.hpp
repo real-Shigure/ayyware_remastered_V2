@@ -16,6 +16,12 @@ public:
 	OPTION(int, fakelag_style, 0);
 	OPTION(int, fakelag_ticks, 0);
 
+	OPTION(bool, antiaim_enabled, false);
+	OPTION(bool, antiaim_jitter, false);
+
+	OPTION(int, retard, 0);
+	OPTION(bool, retard2, false);
+
     // 
     // ESP
     // 

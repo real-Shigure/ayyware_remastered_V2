@@ -253,6 +253,7 @@ void RenderMiscTab()
         ImGui::SetColumnOffset(3, group_w);
 
         ImGui::Checkbox("Bunny hop", &g_Options.misc_bhop);
+		ImGui::Checkbox("Antiaim", &g_Options.antiaim_enabled);
 		ImGui::Checkbox("Fakelag", &g_Options.fakelag_enabled);
 		ImGui::ListBox("Fakelag Style", &g_Options.fakelag_style, fakelag, IM_ARRAYSIZE(fakelag));
 		if (g_Options.fakelag_style == 1)
@@ -261,7 +262,7 @@ void RenderMiscTab()
 		}
 		ImGui::Checkbox("Third Person", &g_Options.misc_thirdperson);
 		if(g_Options.misc_thirdperson)
-			ImGui::SliderFloat("Distance", &g_Options.misc_thirdperson_dist, 0.f, 150.f);
+			ImGui::SliderFloat("Distance", &g_Options.misc_thirdperson_dist, 0.f, 130.f);
         ImGui::Checkbox("No hands", &g_Options.misc_no_hands);
 		ImGui::Checkbox("Rank reveal", &g_Options.misc_showranks);
 		ImGui::Checkbox("Watermark##hc", &g_Options.misc_watermark);
@@ -272,6 +273,8 @@ void RenderMiscTab()
         ImGui::SliderFloat("Red", &g_Options.mat_ambient_light_r, 0, 1);
         ImGui::SliderFloat("Green", &g_Options.mat_ambient_light_g, 0, 1);
         ImGui::SliderFloat("Blue", &g_Options.mat_ambient_light_b, 0, 1);
+		ImGui::Checkbox("Animation", &g_Options.retard2);
+		ImGui::SliderInt("sensation", &g_Options.retard, -10, 300);
         //ImGui::PopItemWidth();
 
         ImGui::Columns(1, nullptr, false);

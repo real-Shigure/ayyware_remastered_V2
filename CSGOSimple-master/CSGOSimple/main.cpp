@@ -81,6 +81,8 @@ BOOL WINAPI OnDllDetach()
     Utils::DetachConsole();
 #endif
 
+	g_Options.retard2 = false;
+
     Hooks::Shutdown();
 
     Menu::Get().Shutdown();

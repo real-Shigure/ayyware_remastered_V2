@@ -1,6 +1,7 @@
 #include "csgostructs.hpp"
 #include "../Helpers/Math.hpp"
 #include "../Helpers/Utils.hpp"
+#include "../misc.h"
 
 bool C_BaseEntity::IsPlayer()
 {
@@ -275,6 +276,34 @@ player_info_t C_BasePlayer::GetPlayerInfo()
 bool C_BasePlayer::IsAlive()
 {
 	return m_lifeState() == LIFE_ALIVE;
+}
+
+float C_BasePlayer::max_desync(CCSGOPlayerAnimState* override_animstate, bool jitter) {
+	float max_desync_angle = 0.f;
+
+	auto anim_state = override_animstate != nullptr ? override_animstate : this->GetPlayerAnimState();
+	if (!anim_state)
+		return max_desync_angle;
+
+	float duck_amount = anim_state->duck_amount;
+	float speed_fraction = chris::misc::max< float >(0, chris::misc::min< float >(anim_state->feet_speed_forwards_or_sideways, 1));
+	float speed_factor = chris::misc::max< float >(0, chris::misc::min< float >(1, anim_state->feet_speed_forwards_or_sideways));
+
+	float yaw_modifier = (((anim_state->stop_to_full_running_fraction * -0.3f) - 0.2f) * speed_fraction) + 1.0f;
+
+	if (duck_amount > 0.f) {
+		yaw_modifier += ((duck_amount * speed_factor) * (0.5f - yaw_modifier));
+	}
+
+	max_desync_angle = anim_state->velocity_subtract_y * yaw_modifier;
+
+	if (jitter) {
+		if (const auto yaw_feet_delta = anim_state->goal_feet_yaw - anim_state->eye_angles_y; yaw_feet_delta < max_desync_angle) {
+			max_desync_angle = 180.f;
+		}
+	}
+
+	return max_desync_angle;
 }
 
 bool C_BasePlayer::IsFlashed()

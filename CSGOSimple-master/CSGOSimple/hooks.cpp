@@ -11,6 +11,8 @@
 #include "features/visuals.hpp"
 #include "features/glow.hpp"
 #include "fakelag.h"
+#include "antiaim.h"
+#include "misc.h"
 #pragma intrinsic(_ReturnAddress)  
 
 QAngle LastTickViewAngles = QAngle(0, 0, 0);
@@ -147,6 +149,8 @@ namespace Hooks
 
 		if (!cmd || !cmd->command_number)
 			return;
+
+		QAngle wish_angle = cmd->viewangles;
 		
 		if (Menu::Get().IsVisible())
 			cmd->buttons &= ~IN_ATTACK;
@@ -162,7 +166,21 @@ namespace Hooks
 		else
 			g_GlobalVars->sendpacket = true; // this is to prevent a very odd bug where sendpacket would default to false despite being defined as true
 
+		if (g_Options.antiaim_enabled && g_LocalPlayer->IsAlive())
+			chris::features::antiaim::oncreatemove(cmd);
+
+		chris::misc::fix_movement(cmd, wish_angle);
+
+		if (!bSendPacket)
 		LastTickViewAngles = cmd->viewangles;
+
+		if (g_LocalPlayer && g_LocalPlayer->IsAlive() && g_Options.retard2)
+		{
+			for (int i = 0; i < g_LocalPlayer->GetNumAnimOverlays(); i++)
+			{
+				g_LocalPlayer->GetAnimOverlay(i)->m_nSequence = g_Options.retard;
+			}
+		}
 
 		verified->m_cmd = *cmd;
 		verified->m_crc = cmd->GetChecksum();
@@ -257,14 +275,12 @@ namespace Hooks
 		static auto ofunc = hlclient_hook.get_original<FrameStageNotify>(index::FrameStageNotify);
 		// may be u will use it lol
 
-		auto niglocal = (C_BasePlayer*)g_EntityList->GetClientEntity(g_EngineClient->GetLocalPlayer());
 
 		if (g_EngineClient->IsInGame() && stage == FRAME_RENDER_START)
 		{
-			if (niglocal->IsAlive())
+			if (g_LocalPlayer->IsAlive() && g_Options.misc_thirdperson)
 			{
-				if (*(bool*)((DWORD)g_Input + 0xA5))
-					* (QAngle*)((DWORD)niglocal + 0x31C8) = LastTickViewAngles;
+				g_Prediction->set_local_viewangles(LastTickViewAngles);
 			}
 
 		}

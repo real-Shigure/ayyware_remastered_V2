@@ -7,7 +7,14 @@ class CUserCmd;
 #include "valve_sdk/csgostructs.hpp"
 namespace chris::features::antiaim
 {
-	void oncreatemove(CUserCmd* cmd);
-	void real(CUserCmd* cmd);
-	void desync(CUserCmd* cmd);
+	class antiaim : public Singleton<antiaim>
+	{
+	public:
+		void oncreatemove(CUserCmd* cmd);
+		
+	private:
+		void real(CUserCmd* cmd);
+		void desync(CUserCmd* cmd);
+	};
+	
 }

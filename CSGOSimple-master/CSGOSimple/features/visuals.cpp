@@ -181,6 +181,7 @@ void Visuals::Player::RenderSnapline()
 	Render::Get().RenderLine(screen_w / 2.f, (float)screen_h,
 		ctx.feet_pos.x, ctx.feet_pos.y, ctx.clr);
 }
+
 //--------------------------------------------------------------------------------
 void Visuals::RenderCrosshair()
 {

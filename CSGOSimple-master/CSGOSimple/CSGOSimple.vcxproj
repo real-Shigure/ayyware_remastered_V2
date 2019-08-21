@@ -141,6 +141,7 @@
     <ClInclude Include="imgui\impl\imgui_impl_dx9.h" />
     <ClInclude Include="imgui\impl\imgui_impl_win32.h" />
     <ClInclude Include="misc.h" />
+    <ClInclude Include="radar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="valve_sdk\Misc\datamap.hpp" />
     <ClInclude Include="fonts\droid.hpp" />

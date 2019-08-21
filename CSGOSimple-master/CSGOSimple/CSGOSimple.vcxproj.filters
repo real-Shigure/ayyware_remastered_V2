@@ -409,5 +409,8 @@
     <ClInclude Include="misc.h">
       <Filter>Header Files\features</Filter>
     </ClInclude>
+    <ClInclude Include="radar.h">
+      <Filter>Header Files\features</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
